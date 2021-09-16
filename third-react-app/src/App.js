@@ -3,6 +3,8 @@ import './App.css';
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import Information from './Data';
+import CircularColor from './Loading'
+import MediaCard from './Card'
 
 function App() {
     const url = 'https://jsonplaceholder.typicode.com/posts';
@@ -16,24 +18,19 @@ function App() {
     useEffect(() => {
         getAllData()
     }, [])
-console.log(data)
     return (
-        <div>
+        <div> {
+          !data ? <CircularColor/> : <div> {data.map((element, key) => {
+                    return (
+                        <div key={key}>
+                            <MediaCard data={element} />
+                            <hr></hr>
+                        </div>
+                    )
 
-            <div>
-              {
-                // <Information dataArray = {data}/>
-                data.map((element,key)=>{
-                  return(
-                    <div key={key}>
-                      <Information element={element}/>
-                    </div>
-                  )
                 })
-               
-              }
-            </div>
-        </div>
+            } </div>
+        } </div>
     )
 
 }
